@@ -12,7 +12,7 @@ const app = express();
 app.use(cors(
     {
         origin: ["http://localhost:5173"],
-        methods: ["POST", "GET", "PUT"],
+        methods: ["POST", "GET", "PUT", "DELETE"],
         credentials: true
     }
 ));
@@ -176,6 +176,29 @@ app.post('/create',upload.single('image'), (req, res) => {
             return res.json({Status: "Success"});
         })
     } )
+})
+
+app.post('/employeelogin', (req, res) => {
+    const sql = "SELECT * FROM employees Where email = ?";
+    con.query(sql, [req.body.email], (err, result) => {
+        if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
+        if(result.length > 0) {
+            bcrypt.compare(req.body.password.toString(), result[0].password, (err, response)=> {
+                if(err) return res.json({Error: "password error"});
+                if(response) {
+                    const token = jwt.sign({role: "employee", id: result[0].id}, "jwt-secret-key", {expiresIn: '1d'});
+                    res.cookie('token', token);
+                    return res.json({Status: "Success", id: result[0].id})
+                } else {
+                    return res.json({Status: "Error", Error: "Wrong Email or Password"});
+                }
+                
+            })
+            
+        } else {
+            return res.json({Status: "Error", Error: "Wrong Email or Password"});
+        }
+    })
 })
 
 

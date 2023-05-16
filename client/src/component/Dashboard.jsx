@@ -12,14 +12,14 @@ const Dashboard = () => {
 		axios.get('http://localhost:8000/dashboard')
 		.then(res => {
 			if(res.data.Status === "Success") {
-				// if(res.data.role === "admin") {
-				// 	navigate('/');
-				// } else {
-				// 	const id = res.data.id;
-				// 	navigate('/employeedetail/'+id)
-				// }
+				if(res.data.role === "admin") {
+					navigate('/');
+				} else {
+					const id = res.data.id;
+					navigate('/employeedetail/'+id)
+				}
 			} else {
-				navigate('/login')
+				navigate('/start')
 			}
 		})
 	}, [])
@@ -27,7 +27,7 @@ const Dashboard = () => {
     const handleLogout = () => {
 		axios.get('http://localhost:8000/logout')
 		.then(res => {
-			navigate('/login')
+			navigate('/start')
 		}).catch(err => console.log(err));
 	}
 
