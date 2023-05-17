@@ -29,9 +29,12 @@ const Navbar = () => {
               {location.pathname === "/employeeLogin" ? "Home" : "Employee"}
             </button>
           </Link>
-          <Link to={"/login"}>
-            <button className="menu-item">Admin</button>
+          <Link to={location.pathname === "/login" ? "/start" : "/login"}>
+            <button className="menu-item">
+              {location.pathname === "/login" ? "Home" : "Admin"}
+            </button>
           </Link>
+
         </div>
       </div>
     </nav>

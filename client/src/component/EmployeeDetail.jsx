@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import Navbar from '../constants/Navbar';
 
 function EmployeeDetail() {
     const {id} = useParams();
@@ -19,6 +20,7 @@ function EmployeeDetail() {
 	}
   return (
     <div>
+        <Navbar />
         <div className='d-flex justify-content-center flex-column align-items-center mt-3'>
             <img src={`http://localhost:8000/images/`+employee.image} alt="" className='empImg'/>
             <div className='d-flex align-items-center flex-column mt-5'>
