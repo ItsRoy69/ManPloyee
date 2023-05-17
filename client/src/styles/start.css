@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+
+.body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  z-index: -1;
+  width: 90%;
+  height: 100%;
+}
+
+.title {
+  font-size: 70px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #0051ff;
+}
+
+.more {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.more-item {
+  text-decoration: none;
+  font-size: 20px;
+  color: #000000;
+  padding: 10px 30px;
+  border-radius: 10px;
+  background-color: #0051ff;
+  cursor: pointer;
+  border: none;
+}
+
+.hero {
+  position: fixed;
+  top: 70%;
+  left: 50%;
+}
+
+.hero img {
+  animation: float 4s ease-in-out infinite;
+  max-height: 500px;
+  z-index: 0;
+  position: fixed;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-50%, -46%);
+  }
+  50% {
+    transform: translate(-50%, -54%);
+  }
+  100% {
+    transform: translate(-50%, -46%);
+  }
+}
+
+@media (max-width: 947px) {
+  .menu-btn {
+    display: block;
+    z-index: 999;
+    padding-right: 100px;
+  }
+
+  .menu-btn i.active:before {
+    content: "\f00d";
+  }
+
+  .nav .menu {
+    position: fixed;
+    height: 50vh;
+    left: -100%;
+    top: 0;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .nav .menu.active {
+    left: 0;
+  }
+
+  .nav .menu a {
+    margin: 0;
+    font-size: 10px;
+    padding-right: 10px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  .hero {
+    top: 50%;
+  }
+
+  .title {
+    font-size: 40px;
+    font-weight: 600;
+  }
+
+  .hero img {
+    animation: float 4s ease-in-out infinite;
+    max-height: 225px;
+    max-width: 225px;
+  }
+
+  .content {
+    height: auto;
+  }
+
+  .more-item {
+    font-size: 16px;
+  }
+
+  .more {
+    padding-top: 350px;
+  }
+}

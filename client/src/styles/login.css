@@ -1,4 +1,7 @@
-.loginForm {
-    background-color: rgba(1, 32, 93, 0.6);
-    color: #fff;
-}
+.adminloginhead {
+    font-size: 70px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #0051ff;
+    text-align: center;
+  }

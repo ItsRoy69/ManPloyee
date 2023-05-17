@@ -1,57 +1,80 @@
-import React, { useState } from 'react'
-import '../styles/employeelogin.css'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import "../styles/employeelogin.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../constants/Navbar";
+import employeelogin from "../assets/employeelogin.webp";
 
 function EmployeeLogin() {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+  axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
+  const [error, setError] = useState("");
 
-    const [values, setValues] = useState({
-        email: '',
-        password: ''
-    })
-    axios.defaults.withCredentials = true;
-    const navigate = useNavigate()
-    axios.defaults.withCredentials = true;
-    const [error, setError] = useState('')
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:8000/employeelogin", values)
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          const id = res.data.id;
+          navigate("/employeedetail/" + id);
+        } else {
+          setError(res.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios.post('http://localhost:8000/employeelogin', values)
-        .then(res => {
-            if(res.data.Status === 'Success') {
-                const id = res.data.id;
-                navigate('/employeedetail/'+id);
-            } else {
-                setError(res.data.Error);
-            }
-        })
-        .catch(err => console.log(err));
-    }
+  return (
+    <>
+      <Navbar />   
 
-    return (
-        <div className='d-flex justify-content-center align-items-center vh-100 loginPage'>
-            <div className='p-3 rounded w-25 border loginForm'>
-                <div className='text-danger'>
-                    {error && error}
-                </div>
-                <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor="email"><strong>Email</strong></label>
-                        <input type="email" placeholder='Enter Email' name='email' 
-                          onChange={e => setValues({...values, email: e.target.value})} className='form-control rounded-0' autoComplete='off'/>
-                    </div>
-                    <div className='mb-3'>
-                        <label htmlFor="password"><strong>Password</strong></label>
-                        <input type="password" placeholder='Enter Password' name='password'
-                          onChange={e => setValues({...values, password: e.target.value})} className='form-control rounded-0' />
-                    </div>
-                    <button type='submit' className='btn btn-success w-100 rounded-0'> Log in</button>
-                    <p>You are agree to aour terms and policies</p>
-                </form>
+      <h1 className="employeeloginhead">Login as Employee</h1>
+      <div className="login-container">
+        <div className="form-container">
+          <form onSubmit={handleSubmit}>
+            <div className="text-danger">{error && error}</div>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="johndoe@gmail.com"
+                name="email"
+                onChange={(e) =>
+                  setValues({ ...values, email: e.target.value })
+                }
+                autoComplete="off"
+              />
             </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                onChange={(e) =>
+                  setValues({ ...values, password: e.target.value })
+                }
+              />
+            </div>
+            <button type="submit" className="submitbtn">
+              Login
+            </button>{" "}
+            <p>You are agree to our terms and policies</p>
+          </form>
         </div>
-    )
+        <div className="image-container">
+          <img src={employeelogin} alt="Employee" />
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default EmployeeLogin
+export default EmployeeLogin;

@@ -11,7 +11,6 @@ import Start from './component/Start'
 import EmployeeDetail from './component/EmployeeDetail'
 import EmployeeLogin from './component/EmployeeLogin'
 
-
 function App() {
   return (
     <BrowserRouter>
